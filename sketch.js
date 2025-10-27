@@ -36,9 +36,7 @@ function designKnap(farve) {
 }
 
 function positionKnap() {
-  // Under dB-meter, lidt højere og lidt til højre
-  let radius = min(width, height) * 0.25;
-  knap.position(width*0.27 - knap.width/2, height/2 + radius - 10); 
+  knap.position(width * 0.05, height * 0.85);
   knap.style("font-size", min(width, height) * 0.07 + "px");
 }
 
@@ -61,6 +59,7 @@ function draw() {
   background(20);
 
   if (width < height) {
+    // Vis besked i portræt
     fill(255);
     textSize(min(width, height) * 0.05);
     text("Vend telefonen til landscape for bedste oplevelse", width/2, height/2);
@@ -94,6 +93,8 @@ function draw() {
     alarmSpillet = false;
   }
 
+  let mid = width / 2;
+
   // --- dB-meter venstre ---
   push();
   translate(width * 0.25, height / 2);
@@ -106,7 +107,7 @@ function draw() {
   drawCo2Smiley(co2, colorState);
   pop();
 
-  // --- Knap under dB-meter ---
+  // --- Knap ---
   positionKnap();
 
   // --- Alarmtekst ---
@@ -144,7 +145,6 @@ function drawDbMeter(dB) {
 function drawCo2Smiley(co2, colorState) {
   let dia = min(width, height) * 0.35;
 
-  // Smiley
   noStroke();
   fill(colorState);
   circle(0, 0, dia);
@@ -159,15 +159,14 @@ function drawCo2Smiley(co2, colorState) {
   strokeWeight(dia*0.06);
   arc(0, 0, dia*0.35, dia*0.2, 20, 160);
 
-  // CO2-bar rykket længere ned
   noStroke();
   fill(colorState);
-  rect(-dia*0.425, dia*0.3, dia*0.85, dia*0.2, dia*0.05);
+  rect(-dia*0.425, dia*0.15, dia*0.85, dia*0.2, dia*0.05);
 
   fill("white");
   textSize(dia*0.18);
   textStyle(BOLD);
-  text(int(co2) + " ppm", 0, dia*0.4);
+  text(int(co2) + " ppm", 0, dia*0.25);
 }
 
 function alarmLyd() {
